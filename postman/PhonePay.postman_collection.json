@@ -1,0 +1,141 @@
+{
+  "info": {
+    "_postman_id": "31a7f314-cf2e-4a7b-95bb-522be07352b2",
+    "name": "PhonePay API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create Wallet",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"userName\": \"alice\",\n  \"initialBalance\": 1000.00,\n  \"email\": \"alice@example.com\",\n  \"phoneNumber\": \"9999999999\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/wallets",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "wallets"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Get Wallet By User",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/api/wallets/alice",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "wallets",
+            "alice"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Get All Wallets",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/api/wallets",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "wallets"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Transfer Money",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"sender\": \"alice\",\n  \"receiver\": \"bob\",\n  \"amount\": 150.25\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/payments/transfer",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "payments",
+            "transfer"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Transaction History By User",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/api/payments/history?userName=alice",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "payments",
+            "history"
+          ],
+          "query": [
+            {
+              "key": "userName",
+              "value": "alice"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "All Transactions",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/api/payments/history",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "payments",
+            "history"
+          ]
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:9090"
+    }
+  ]
+}
