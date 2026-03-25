@@ -14,8 +14,8 @@ FROM openjdk:17-jdk-slim
 WORKDIR /app
 COPY --from=build /app/target/phonepay-0.0.1-SNAPSHOT.jar app.jar
 
-# Expose port
+# Expose port (Render uses PORT env var)
 EXPOSE 9091
 
-# Run the application
-CMD ["java", "-jar", "app.jar"]
+# Run the application with PORT from environment
+CMD ["sh", "-c", "java -jar app.jar --server.port=${PORT:-9091}"]

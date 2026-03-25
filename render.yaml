@@ -9,7 +9,7 @@ services:
     region: oregon
     
     # Docker configuration
-    dockerfilePath: ./Dockerfile
+    dockerfilePath: Dockerfile
     dockerContext: .
     
     # Environment variables
