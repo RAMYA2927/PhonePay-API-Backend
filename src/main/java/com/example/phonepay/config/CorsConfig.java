@@ -10,9 +10,13 @@ public class CorsConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/api/**")
-                .allowedOrigins("http://localhost:53975", "http://localhost:3000")
+                .allowedOrigins(
+                    "http://localhost:53975", 
+                    "http://localhost:3000",
+                    "https://phonepe-react-frontend.onrender.com"
+                )
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-                .allowedHeaders("Content-Type", "Authorization")
+                .allowedHeaders("*")
                 .allowCredentials(true)
                 .maxAge(3600);
     }
