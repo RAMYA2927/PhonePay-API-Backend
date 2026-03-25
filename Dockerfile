@@ -1,5 +1,5 @@
 # Use Maven image for building
-FROM maven:3.9.4-openjdk-17 AS build
+FROM maven:3.8.6-openjdk-17 AS build
 
 WORKDIR /app
 
@@ -15,11 +15,11 @@ COPY src ./src
 # Build the application
 RUN mvn clean package -DskipTests -B
 
-# Use OpenJDK runtime image
-FROM openjdk:17-jdk-slim-bullseye
+# Use Eclipse Temurin runtime image (more reliable)
+FROM eclipse-temurin:17-jre-alpine
 
 # Install curl for health checks
-RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
+RUN apk add --no-cache curl
 
 WORKDIR /app
 
