@@ -1,5 +1,5 @@
 # Use Maven image for building
-FROM maven:3.9-openjdk-17 AS build
+FROM maven:3.9.4-openjdk-17 AS build
 
 WORKDIR /app
 
@@ -16,7 +16,7 @@ COPY src ./src
 RUN mvn clean package -DskipTests -B
 
 # Use OpenJDK runtime image
-FROM openjdk:17-jdk-slim
+FROM openjdk:17-jdk-slim-bullseye
 
 # Install curl for health checks
 RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
