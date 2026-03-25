@@ -1,31 +1,26 @@
 package com.example.phonepay.model;
 
-import jakarta.persistence.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "transactions")
+@Document(collection = "transactions")
 public class Transaction {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id; // primary key
+    private String id;
 
-    @Column(nullable = false)
     private String sender;
 
-    @Column(nullable = false)
     private String receiver;
 
-    @Column(nullable = false, precision = 19, scale = 2)
     private BigDecimal amount;
 
-    @Column(nullable = false)
-    private String status; // e.g., SUCCESS, FAILED
+    private String status;
 
-    @Column(nullable = false)
-    private LocalDateTime timestamp; // transaction time
+    private LocalDateTime timestamp;
 
     // Default constructor
     public Transaction() {}
@@ -40,7 +35,7 @@ public class Transaction {
     }
 
     // Getters & Setters
-    public Long getId() { return id; }
+    public String getId() { return id; }
 
     public String getSender() { return sender; }
     public void setSender(String sender) { this.sender = sender; }

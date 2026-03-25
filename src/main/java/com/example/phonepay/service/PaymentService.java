@@ -10,7 +10,6 @@ import com.example.phonepay.repository.TransactionRepository;
 import com.example.phonepay.repository.WalletRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -49,7 +48,6 @@ public class PaymentService {
         return walletRepository.findAll();
     }
 
-    @Transactional
     public Transaction transfer(TransferRequest request) {
         String sender = request.getSender().trim();
         String receiver = request.getReceiver().trim();

@@ -1,27 +1,30 @@
 package com.example.phonepay.model;
 
-import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.math.BigDecimal;
 
-@Entity
-@Table(name = "wallets")
+@Document(collection = "wallets")
 public class Wallet {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;                // primary key
+    private String id;
 
-    @Column(unique = true, nullable = false)
-    private String userName;        // wallet owner
+    @Indexed(unique = true)
+    private String userName;
 
-    @Column(nullable = false, precision = 19, scale = 2)
-    private BigDecimal balance;     // current balance
+    private BigDecimal balance;
 
-    // Optional: add more fields like email, phone number
-    @Column
+    private String fullName;
+
+    @JsonIgnore
+    private String pinHash;
+
     private String email;
 
-    @Column
     private String phoneNumber;
 
     // Default constructor required by JPA
@@ -33,16 +36,24 @@ public class Wallet {
         this.balance = balance;
         this.email = email;
         this.phoneNumber = phoneNumber;
+        this.fullName = null;
+        this.pinHash = null;
     }
 
     // Getters and Setters
-    public Long getId() { return id; }
+    public String getId() { return id; }
 
     public String getUserName() { return userName; }
     public void setUserName(String userName) { this.userName = userName; }
 
     public BigDecimal getBalance() { return balance; }
     public void setBalance(BigDecimal balance) { this.balance = balance; }
+
+    public String getFullName() { return fullName; }
+    public void setFullName(String fullName) { this.fullName = fullName; }
+
+    public String getPinHash() { return pinHash; }
+    public void setPinHash(String pinHash) { this.pinHash = pinHash; }
 
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
