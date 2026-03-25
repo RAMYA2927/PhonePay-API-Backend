@@ -1,0 +1,28 @@
+services:
+  # PhonePay API Backend Service
+  - type: web
+    name: phonepay-api-backend
+    runtime: docker
+    plan: free
+    repo: https://github.com/RAMYA2927/PhonePay-API-Backend.git
+    branch: main
+    region: oregon
+    
+    # Docker configuration
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    
+    # Environment variables
+    envVars:
+      - key: PORT
+        value: 9091
+      - key: SPRING_DATA_MONGODB_URI
+        value: mongodb+srv://username:password@cluster.mongodb.net/phonepay
+      - key: SPRING_PROFILES_ACTIVE
+        value: production
+    
+    # Health check
+    healthCheckPath: /actuator/health
+    
+    # Auto-deploy on push
+    autoDeploy: true
