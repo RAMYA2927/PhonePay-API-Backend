@@ -47,14 +47,14 @@ https://phonepay-api-backend-1.onrender.com/actuator/health
 ## 🛠️ Local Development
 
 ```bash
-# Start MongoDB locally (Docker)
-docker compose up -d
+# Clone the repository
+git clone https://github.com/RAMYA2927/PhonePay-API-Backend.git
 
-# Run the application (Gradle)
-./gradlew bootRun
+# Navigate to project
+cd PhonePay-API-Backend
 
-# Windows:
-.\gradlew.bat bootRun
+# Run the application
+./mvnw spring-boot:run
 ```
 
 ## 📝 Environment Variables
