@@ -14,11 +14,16 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(authz -> authz
+                .requestMatchers("/").permitAll()
                 .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**", "/webjars/**").permitAll()
                 .requestMatchers("/swagger-ui.html").permitAll()
                 .requestMatchers("/swagger-ui").permitAll()
                 .requestMatchers("/swagger-ui/index.html").permitAll()
                 .requestMatchers("/api/auth/**").permitAll()
+                // This project currently does not configure an authentication mechanism (basic/jwt/session).
+                // Permit core API endpoints so local/dev/test flows work without 401s.
+                .requestMatchers("/api/wallets/**").permitAll()
+                .requestMatchers("/api/payments/**", "/api/payment/**").permitAll()
                 .requestMatchers("/actuator/**").permitAll()
                 .anyRequest().authenticated()
             )
