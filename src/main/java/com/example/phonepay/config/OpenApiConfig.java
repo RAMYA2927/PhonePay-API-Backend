@@ -15,7 +15,8 @@ import org.springframework.context.annotation.Configuration;
                 contact = @Contact(name = "PhonePay Service")
         ),
         servers = {
-                @Server(url = "http://localhost:9091", description = "Local")
+                // Use a relative server URL so Swagger works on any port / environment (localhost, Render, etc.).
+                @Server(url = "/", description = "Current host")
         }
 )
 public class OpenApiConfig {
