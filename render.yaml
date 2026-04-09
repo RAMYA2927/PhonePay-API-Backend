@@ -14,10 +14,9 @@ services:
     
     # Environment variables
     envVars:
-      - key: PORT
-        value: 9091
       - key: SPRING_DATA_MONGODB_URI
-        value: mongodb+srv://username:password@cluster.mongodb.net/phonepay
+        # Set this in the Render dashboard as a secret. Must start with mongodb:// or mongodb+srv://
+        sync: false
       - key: SPRING_PROFILES_ACTIVE
         value: production
     
