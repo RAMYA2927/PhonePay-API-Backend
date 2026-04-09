@@ -8,6 +8,7 @@ import com.example.phonepay.exception.NotFoundException;
 import com.example.phonepay.model.Wallet;
 import com.example.phonepay.repository.WalletRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -44,7 +45,12 @@ public class AuthService {
         wallet.setBalance(request.getInitialBalance().setScale(2, RoundingMode.HALF_UP));
         wallet.setPinHash(passwordEncoder.encode(request.getPin()));
 
-        return walletRepository.save(wallet);
+        try {
+            return walletRepository.save(wallet);
+        } catch (DuplicateKeyException ex) {
+            // Handles races or case/whitespace variants if a unique index exists on userName.
+            throw new BadRequestException("User already registered with UPI id: " + upi);
+        }
     }
 
     public Wallet login(LoginRequest request) {

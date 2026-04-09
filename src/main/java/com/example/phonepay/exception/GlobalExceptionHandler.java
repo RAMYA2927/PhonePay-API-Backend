@@ -4,6 +4,7 @@ import com.example.phonepay.dto.ApiResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -40,6 +41,13 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.badRequest()
                 .body(new ApiResponse<>(false, "Validation failed", errors));
+    }
+
+    @ExceptionHandler(DuplicateKeyException.class)
+    public ResponseEntity<ApiResponse<Object>> handleDuplicateKey(DuplicateKeyException ex) {
+        // Commonly thrown by MongoDB when a unique index is violated.
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(new ApiResponse<>(false, "Duplicate resource", null));
     }
 
     @ExceptionHandler(NoResourceFoundException.class)
